@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+
+    demo-shop:
+       build: SPA/
+       ports: 
+           - "3000:80"
+#       volumes:
+#           - ./SPA:/var/www/html
+       container_name: demo-shop
+       networks:
+           app_net_shop:
+        
+networks:
+    app_net_shop:
+        ipam:
+            driver: default
+            config:
+                - subnet: "172.16.200.0/24"
+
+        
+            
