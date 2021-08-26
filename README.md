@@ -2,14 +2,15 @@
 docker-compose build
 ```
 docker-compose run -d
-```
+
 http://host:3000
-``
+
 
 # dev
 cd/vue-src
-node 14+
-``
+
+need node 14+
+
 ## Project setup
 ```
 npm install
