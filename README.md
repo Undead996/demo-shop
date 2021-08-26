@@ -1,6 +1,6 @@
 # docker
 docker-compose build
-```
+
 docker-compose run -d
 
 http://host:3000
