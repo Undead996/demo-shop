@@ -28,6 +28,7 @@
 
 <script>
 import Button from '@/components/Button.vue'
+import Widget from '../widget/widget.class.js';
 
 export default {
     components: {
@@ -43,20 +44,12 @@ export default {
             this.$store.commit('REMOVE_FROM_BASKET', id);
         },
         sendToFrameTest() {
-            let cont = document.createElement('DIV');
-            cont.id = 'testDiv';
-            cont.style = 'z-index: 9997; text-align: left; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px; transition: opacity 0.15s ease 0s; overflow: auto; pointer-events: all; opacity: 1;';
-            let frame = '<iframe allowpaymentrequest="" name="testFrame" src="http://localhost:80/index.php" class=" with-appled" style="height: 100% !important; width: 100% !important; position: fixed !important; z-index: 9999 !important; border: 0px !important; inset: 0px !important; max-height: 100% !important;"></iframe>'
-            cont.innerHTML = frame; 
-            document.querySelector('body').append(cont);  
-            let form = document.createElement('FORM');
-            form.target = 'testFrame';
-            form.action = 'http://localhost:80/index.php';
-            form.method = 'post';
-            form.innerHTML = '<input type="hidden" name="params" value="Some JSON"/><input type="submit">';
-            document.querySelector('body').append(form); 
-            form.style.display = 'none';
-            form.submit(); 
+            new Widget({proc_url: 'http://192.168.121.5:3300/index.html',
+                                pay_params: {key: 'value',
+                                            key2: 'value2'},
+                                frame_id: 'test_frame',
+                                frame_name: 'to_pay'});
+            this.$store.dispatch('act_SHOW_BASKET');
         }
     },
 }
