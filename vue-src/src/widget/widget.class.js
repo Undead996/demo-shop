@@ -1,10 +1,15 @@
-export default class Widget {
+// const proc_url = "http://192.168.100.24:80";
+const proc_url = "http://192.168.121.5:3300/index.php";
+
+class Widget {
     constructor( data ) {
-        this.proc_url = data.proc_url;
+        this.proc_url = proc_url;
         this.pay_params = data.pay_params;
         this.frame_id = data.frame_id;
         this.frame_name = data.frame_name;
-        this.closeWidget = this.closeWidget.bind(this);
+        this.onSuccess = data.onSuccess;
+        this.onFail = data.onFail;
+        this.getFrameMessage = this.getFrameMessage.bind(this);
         this.createFrame();
         this.createFormData();
         this.openWidget();
@@ -26,7 +31,7 @@ export default class Widget {
         this.form.target = this.frame_name;
         this.form.action = this.proc_url;
         this.form.method = 'post';
-        this.form.innerHTML = `<input type="hidden" name="pay_params" value=${this.prepareParams()}/><input type="submit">`;
+        this.form.innerHTML = `<input type="hidden" name="pay_params" value='${this.prepareParams()}'/><input type="submit">`;
         this.form.style.display = 'none';
         document.querySelector('body').append(this.form); 
     }
@@ -36,11 +41,27 @@ export default class Widget {
     openWidget() {
         document.querySelector('body').append(this.frame);  
         this.form.submit();
-        window.addEventListener('message', this.closeWidget) ;
+        window.addEventListener('message', (e) => {this.getFrameMessage(e)}) ;
         document.querySelector(`#form_${this.frame_id}`).remove();
+    }
+    getFrameMessage(e) {
+        let msg = JSON.parse(e.data);
+        if (msg.result[0] == 0) {
+            this.onSuccess(msg.result);
+        } else if (msg.result[0] == 1){
+            this.onFail(msg.why, msg.result);
+        }
+
+        if (msg.command == 'close') {
+            this.closeWidget(); 
+        }
     }
     closeWidget() {
         document.querySelector(`#${this.frame.id}`).remove();
     }
+}
+
+export default function openWidget(data) {
+    new Widget(data);
 }
 

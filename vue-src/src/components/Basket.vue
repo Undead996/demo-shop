@@ -28,7 +28,7 @@
 
 <script>
 import Button from '@/components/Button.vue'
-import Widget from '../widget/widget.class.js';
+import openWidget from '@/widget/widget.class.js';
 
 export default {
     components: {
@@ -44,11 +44,20 @@ export default {
             this.$store.commit('REMOVE_FROM_BASKET', id);
         },
         sendToFrameTest() {
-            new Widget({proc_url: 'http://192.168.121.5:3300/index.html',
-                                pay_params: {key: 'value',
-                                            key2: 'value2'},
-                                frame_id: 'test_frame',
-                                frame_name: 'to_pay'});
+            openWidget({frame_id: 'test_frame',
+                        frame_name: 'to_pay',
+                        pay_params: {shopId: '00000001',
+                                    shop: `Оплата на ${window.location.host}`,
+                                    summ: this.total,
+                                    prop: {
+                                        param:'value',
+                                    }},
+                        onSuccess: function (result) {
+                            console.log('success', result);
+                        },
+                        onFail: function (why, result) {
+                            console.log('fail', why, result);
+                        }})
             this.$store.dispatch('act_SHOW_BASKET');
         }
     },
