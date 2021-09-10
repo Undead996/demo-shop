@@ -24,11 +24,14 @@ export default {
     position: fixed;
     left: 0;
     width: 100%;
+    height: 100vh;
     top: 0;
     z-index: 3000;
+    overflow-y: scroll;
     &-content {
         margin: 3rem auto;
         width: 50rem;
+        max-height: 30rem;
         text-align: right;
         button {
             margin-bottom: 1rem;

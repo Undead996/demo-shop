@@ -1,6 +1,6 @@
 <template>
     <div class="basket">
-        <h2>Basket</h2>
+        <h2>BASKET</h2>
         <div v-if="Object.keys(this.$store.state.inBasket).length > 0" class="basket-products">
             <div :key="item.id" v-for="item in this.$store.state.inBasket" class="single">
                 <div class="single-img">
@@ -99,11 +99,10 @@ export default {
         align-items: center;
     }
     .total {
-        padding: 1rem;
         justify-content: space-around;
         font-size: 2rem;
         .big {
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
     }
 }

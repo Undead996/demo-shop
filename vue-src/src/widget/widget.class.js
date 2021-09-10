@@ -9,12 +9,13 @@ class Widget {
         this.frame_name = data.frame_name;
         this.onSuccess = data.onSuccess;
         this.onFail = data.onFail;
-        this.getFrameMessage = this.getFrameMessage.bind(this);
+
+        this.getFrameMessageWrapper = this.getFrameMessage.bind(this);
+        
         this.createFrame();
         this.createFormData();
         this.openWidget();
     }
-
     createFrame() {
         let cont = document.createElement('DIV');
         cont.id = this.frame_id;
@@ -41,7 +42,7 @@ class Widget {
     openWidget() {
         document.querySelector('body').append(this.frame);  
         this.form.submit();
-        window.addEventListener('message', (e) => {this.getFrameMessage(e)}) ;
+        window.onmessage = (e) => {this.getFrameMessageWrapper(e)} ;
         document.querySelector(`#form_${this.frame_id}`).remove();
     }
     getFrameMessage(e) {
@@ -57,7 +58,7 @@ class Widget {
         }
     }
     closeWidget() {
-        document.querySelector(`#${this.frame.id}`).remove();
+        this.frame.remove();
     }
 }
 
