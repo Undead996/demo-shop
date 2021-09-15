@@ -1,6 +1,6 @@
 <template>
     <div class='footer'>
-        Very important footer
+        Copyright © Ваш сайт 2021
     </div>
 </template>
 
@@ -11,13 +11,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss_variables/variables";
 .footer {
-    font-size: 2rem;
+    font-size: 1rem;
     text-align: center;
-    padding: 1rem;
-    margin-top: 4rem;
-    background-color: #66C05D;
-    color: white;
-    text-transform: uppercase;
+    padding: 2.5rem;
+    background-color: $background-dark;
+    color: $font-light;
 }
 </style>

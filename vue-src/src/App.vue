@@ -2,9 +2,7 @@
 <div>
   <div class='wrapper' :class="{'blur': this.$store.state.isBlur}">
     <Header/>
-    <div class='main'>
-      <Catalog/>
-    </div>
+      <Catalog class='main'/>
     <Footer/>
   </div>
   <Modal v-if="this.$store.state.modalShow"/>
@@ -28,16 +26,18 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/scss_variables/variables";
 * {
   margin: 0;
   box-sizing: border-box;
 }
 html {
   font-size: 16px;
+  font-family: $main-font;
 }
 a {
   text-decoration: none;
-  color: black;
+  color: $font-dark;
 }
 #app {
   position: relative;
@@ -50,10 +50,18 @@ a {
   flex-direction: column;
   flex-wrap: nowrap;
   min-height: 100vh;
-  margin: 0 auto;
-  max-width: 80%;
   .main {
-    flex: 1,
+    flex: 1;
+    max-width: 85%;
+    margin: 0 auto;
+  }
+}
+.mobile {
+  display: none;
+}
+@media (max-width: $hide-width) {
+  .no-mobile {
+    display: none;
   }
 }
 </style>

@@ -62,7 +62,7 @@ class Widget {
     }
 }
 
-export default function openWidget(data) {
+export function openWidget(data) {
     new Widget(data);
 }
 

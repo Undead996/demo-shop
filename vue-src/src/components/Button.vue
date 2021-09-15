@@ -1,5 +1,5 @@
 <template>
-    <button v-on:click="this.listener">{{this.text}}</button>
+    <button v-on:click="this.listener"><slot>{{this.text}}</slot></button>
 </template>
 
 <script>
@@ -7,23 +7,25 @@ export default {
     props: {
         text: String,
         listener: Function,
-    }    
+    },
 }
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss_variables/variables";
 button {
-    background-color: #66C05D;
-    color: white;
-    padding: 0.7rem 1rem;
+    color: $btn-color;
+    background-color: transparent;
+    padding: 0.375rem 0.75rem;
     font-size: 1rem;
-    border-radius: 30px;
+    border-radius: 0.25rem;
     cursor: pointer;
-    border: 2px solid white;
+    border: 1px solid $btn-color;
+    font-weight: 400;
+    line-height: 1.5;
 }
 button:hover {
-    color: #66C05D;
-    background: white;
-    border: 2px solid #66C05D;
+    background-color: $btn-color;
+    color: white;
 }
 </style>

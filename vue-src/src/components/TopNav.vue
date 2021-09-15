@@ -1,25 +1,26 @@
 <template>
     <div class='top-nav'>
-        <a href="#">Catalog</a>
-        <a href="#">About</a>
-        <a href="#">Something</a>
+        <a href="#">Демо-магазин</a>
+        <a class='no-mobile' href="#">Магазин</a>
+        <a class='no-mobile' href="#">Интеграция</a>
     </div>
 </template>
 
 <script>
-export default {
-
-}
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss_variables/variables";
     .top-nav {
         a {
+            color: $font-semidark;
+        }
+        a:first-child {
+            color: $font-dark;
             font-size: 1.2rem;
-            text-transform: uppercase;
         }
         a:hover {
-            text-decoration: underline;
+            color: $font-dark;
         }
     }
 </style>
