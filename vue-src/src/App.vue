@@ -52,7 +52,8 @@ a {
   min-height: 100vh;
   .main {
     flex: 1;
-    max-width: 85%;
+    max-width: 1150px;
+    width: 85%;
     margin: 0 auto;
   }
 }
