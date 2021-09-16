@@ -23,6 +23,7 @@ button {
     border: 1px solid $btn-color;
     font-weight: 400;
     line-height: 1.5;
+    transition: 0.5s;
 }
 button:hover {
     background-color: $btn-color;

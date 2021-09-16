@@ -1,20 +1,17 @@
 <template>
     <div class='modal'>
         <div class='modal-content'>
-            <Button :listener="() => {this.$store.dispatch('act_SHOW_BASKET')}" text="&#10006;"/>
             <Basket/>
         </div>
     </div>
 </template>
 
 <script>
-import Button from '@/components/Button.vue'
 import Basket from '@/components/Basket.vue'
 
 export default {
     components: {
         Basket,
-        Button
     }    
 }
 </script>
@@ -42,6 +39,7 @@ export default {
         }
         button {
             margin-bottom: 1rem;
+            position: absolute;
             font-size: 1.2rem;
         }
     }

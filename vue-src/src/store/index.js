@@ -31,7 +31,9 @@ export default createStore({
       state.modalShow = !state.modalShow;
       state.isBlur = !state.isBlur;
       let overflow = state.modalShow ? 'hidden' : 'auto';
+      let padding = state.modalShow ? '17px' : '0';
       document.querySelector('body').style['overflow-y'] = overflow;
+      document.querySelector('body').style['padding-right'] = padding;
     },
     ADD_TO_BASKET: (state, n) => {
       state.inBasket[n.id] = [n];

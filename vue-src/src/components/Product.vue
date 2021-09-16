@@ -1,7 +1,9 @@
 <template>
     <div class='product' :class="{'product-active': this.$store.state.inBasket[this.product.id]}">
         <div class='product-wrapper'>
-            <img class='product-img' :src="require(`../assets/products/${product.img}`)" alt='cat'>
+            <div class='product-img'>
+                <img :src="require(`../assets/products/${product.img}`)" alt='cat'>
+            </div>
             <div class='product-description'>
                 <h3 class='product-description-title'>{{this.product.name}}</h3>
                     <StarReit v-if="this.product.reit" :product="this.product"/>
@@ -9,10 +11,14 @@
             </div>
             <div v-if="this.$store.state.inBasket[this.product.id]" class='product-btns'>
                 <Button :listener=" () => this.RemoveFromBasket(this.product.id)" text="Убрать"/>
+                <div class='product-btns-spot'>
+                    <span v-on:click="this.ByNow">Оформить заказ</span>
+                </div>
             </div>
             <div v-else class='product-btns'>
                 <Button :listener="this.addProduct" text="В корзину"/>
-                <Button :listener="this.ByNow" text="Купить"/>
+                <div class='product-btns-spot'>
+                </div>
             </div>
         </div>
     </div>
@@ -87,9 +93,18 @@ export default {
         }
     }
     &-img {
-        width: 100%;
-        border-top-left-radius: calc(0.25rem - 1px);
-        border-top-right-radius: calc(0.25rem - 1px);
+        overflow: hidden;
+        img {
+            width: 100%;
+            display: block;
+            border-top-left-radius: calc(0.25rem - 1px);
+            border-top-right-radius: calc(0.25rem - 1px);
+            transition: 0.7s;
+        }
+        img:hover {
+            transform:scale(1.2, 1.2);
+            cursor: pointer;
+        }
     }
     &-btns {
         padding: 0 1.5rem 1.5rem;
@@ -98,8 +113,14 @@ export default {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-        button:last-child {
-            margin-top: 1rem;
+        height: 6rem;
+        &-spot {
+            font-size: 1rem;
+            cursor: pointer;
+            color: $prod-href;
+        }
+        button {
+            width: 8rem;
         }
     }
 }

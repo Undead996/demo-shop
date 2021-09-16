@@ -1,6 +1,9 @@
 <template>
     <div class="basket">
-        <h2>КОРЗИНА</h2>
+        <div class="basket-header">
+            <h2>КОРЗИНА</h2>
+            <Button :listener="() => {this.$store.dispatch('act_SHOW_BASKET')}" text="&#10006;"/>
+        </div>
         <div v-if="Object.keys(this.$store.state.inBasket).length > 0" class="basket-products">
             <div :key="item.id" v-for="item in this.$store.state.inBasket" class="single">
                 <div class="single-img">
@@ -16,8 +19,12 @@
                 </div>
             </div>
             <div class="single total">
-                <p>Итог: {{this.total}} </p>
-                <Button :listener="this.sendToFrameTest" text='Купить' class='big'/>
+                <div class='single-img'>
+                </div>
+                <div class='single-data'>
+                    <p>Итог: {{this.total}} </p>
+                    <Button :listener="this.sendToFrameTest" text='Купить' class='big'/>
+                </div>
             </div>
         </div>
         <div v-else class="basket-products">
@@ -71,6 +78,15 @@ export default {
 .basket {
     text-align: left;
     overflow-y: auto;
+    &-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+    }
     &-products {
         margin-top: 0.5rem;
     }
@@ -80,23 +96,21 @@ export default {
         flex-wrap: nowrap;
         margin-bottom: 1rem;
         padding: 1rem 0.25rem;
-        border-top: 1px solid $background-dark;
-        border-bottom: 1px solid $background-dark;
         &-img {
             flex: 1;
             img {
-                border-radius: 50%;
-                max-width: 90px;
+                max-width: 100px;
                 @media (max-width: 625px) {
                     max-width: 140px;
                 }
             }
         }
         &-data {
+            flex: 4; 
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
-            flex: 4;
+            justify-content: space-between;
             align-items: center;
             &-name {
                 flex: 2;
@@ -105,10 +119,7 @@ export default {
                 flex: 1;
             }
             &-id {
-                flex: 1
-            }
-            &-actions {
-                flex: 2,
+                flex: 1;
             }
             @media (max-width: 625px) {
                 flex-direction: column;
@@ -119,14 +130,21 @@ export default {
         }
         align-items: center;
     }
-    .single:last-child {
-        border: none;
+    .single:last-child, .single:first-child {
+        border-top: 2px solid silver;
     }
     .total {
-        justify-content: space-around;
+        justify-content: space-between;
         font-size: 2rem;
+        margin-bottom: 0 !important;
         .big {
             font-size: 1.5rem;
+            color: white;
+            background-color: $btn-color;
+        }
+        .big:hover {
+            color: $btn-color;
+            background-color: transparent;
         }
     }
 }
