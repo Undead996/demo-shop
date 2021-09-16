@@ -16,6 +16,7 @@ export default createStore({
     isBlur: false,
     showBasket: false,
     modalShow: false,
+    prodDetail: '',
   },
   getters: {
     get_TOTAL_SUMM: state => {
@@ -34,6 +35,9 @@ export default createStore({
       let padding = state.modalShow ? '17px' : '0';
       document.querySelector('body').style['overflow-y'] = overflow;
       document.querySelector('body').style['padding-right'] = padding;
+    },
+    SHOW_PRODUCT_DETAIL: (state, n) => {
+      state.prodDetail = n;
     },
     ADD_TO_BASKET: (state, n) => {
       state.inBasket[n.id] = [n];
