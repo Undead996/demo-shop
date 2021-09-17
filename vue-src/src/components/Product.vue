@@ -1,6 +1,5 @@
 <template>
     <div class='product' :class="{'product-active': this.$store.state.inBasket[this.product.id]}">
-        <ProductDetail  :product="this.product" v-if="this.$store.state.prodDetail == this.product.id"/>
         <div class='product-wrapper'>
             <div class='product-img'>
                 <img v-on:click="this.ShowDetails(this.product.id)" :src="require(`../assets/products/${product.img}`)" alt='cat'>
@@ -27,14 +26,12 @@
 
 <script>
 import Button from '@/components/Button.vue'
-import ProductDetail from '@/components/ProductDetail.vue'
 import StarReit from '@/components/StarReit.vue'
 
 export default {
     components: {
         Button,
         StarReit,
-        ProductDetail
     },
     props: {
         product: Object,
@@ -47,10 +44,9 @@ export default {
             this.$store.commit('REMOVE_FROM_BASKET', id);
         },
         ShowDetails:function (id) {
-            this.$store.commit('SHOW_PRODUCT_DETAIL', id);
+            this.$store.dispatch('act_SHOW_LIGHTBOX', id);
         },
         ByNow() {
-            this.$store.commit('ADD_TO_BASKET', this.product);
             this.$store.dispatch('act_SHOW_BASKET');
         }
     }
@@ -106,7 +102,7 @@ export default {
             display: block;
             border-top-left-radius: calc(0.25rem - 1px);
             border-top-right-radius: calc(0.25rem - 1px);
-            transition: 0.7s;
+            transition: $def-transition;
         }
         img:hover {
             transform:scale(1.2, 1.2);

@@ -1,17 +1,22 @@
 <template>
+    <transition appear name="show-anim">
     <div class='modal'>
         <div class='modal-content'>
-            <Basket/>
+            <Basket v-if="this.$store.state.showBasket"/>
+            <ProductLightbox v-else-if="this.$store.state.showLightbox" />
         </div>
     </div>
+    </transition>
 </template>
 
 <script>
 import Basket from '@/components/Basket.vue'
+import ProductLightbox from '@/components/ProductLightbox.vue'
 
 export default {
     components: {
         Basket,
+        ProductLightbox,
     }    
 }
 </script>
@@ -26,17 +31,11 @@ export default {
     top: 0;
     z-index: 3000;
     overflow-y: scroll;
+    background-color: $font-semidark;
     &-content {
         margin: 3rem auto;
-        width: 50rem;
+        width: max-content;
         text-align: right;
-        background: $background-light;
-        border: 1px solid $btn-color;
-        border-radius: 0.25rem;
-        padding: 1rem;
-        @media (max-width: 920px) {
-            width: 95%;
-        }
         button {
             margin-bottom: 1rem;
             position: absolute;

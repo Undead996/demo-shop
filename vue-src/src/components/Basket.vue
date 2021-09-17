@@ -53,6 +53,7 @@ export default {
             this.$store.commit('REMOVE_FROM_BASKET', id);
         },
         sendToFrameTest() {
+            let context = this.$store;
             openWidget({frame_id: 'test_frame',
                         frame_name: 'to_pay',
                         pay_params: {shopId: '00000001',
@@ -63,11 +64,13 @@ export default {
                                     }},
                         onSuccess: function (result) {
                             console.log('success', result);
+                            context.commit('SHOW_MODAL');
                         },
                         onFail: function (why, result) {
                             console.log('fail', why, result);
+                            context.commit('SHOW_MODAL');
                         }})
-            this.$store.dispatch('act_SHOW_BASKET');
+            this.$store.commit('SHOW_BASKET');
         }
     },
 }
@@ -78,6 +81,14 @@ export default {
 .basket {
     text-align: left;
     overflow-y: auto;
+    width: 50rem;
+    padding: 1rem;
+    background: $background-light;
+    border: 1px solid $btn-color;
+    border-radius: 0.25rem;
+    @media (max-width: 920px) {
+        width: 95%;
+    }
     &-header {
         display: flex;
         flex-direction: row;
