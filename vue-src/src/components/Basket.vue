@@ -56,12 +56,17 @@ export default {
             let context = this.$store;
             openWidget({frame_id: 'test_frame',
                         frame_name: 'to_pay',
-                        pay_params: {shopId: '00000001',
-                                    shop: `Оплата на ${window.location.host}`,
+                        sign: 'some',
+                        pay_params: {ext_transact: "",
+                                    num_shop: '00000001',
+                                    keyt_shop: '007',
+                                    comment: `Оплата на ${window.location.host}`,
                                     summ: this.total,
-                                    prop: {
-                                        param:'value',
-                                    }},
+                                    payform: "0",
+                                    accountId:'testShop',
+                                    skin: '',
+                                    free_param: '',
+                        },
                         onSuccess: function (result) {
                             console.log('success', result);
                             context.commit('SHOW_MODAL');
@@ -69,7 +74,7 @@ export default {
                         onFail: function (why, result) {
                             console.log('fail', why, result);
                             context.commit('SHOW_MODAL');
-                        }})
+                        }});
             this.$store.commit('SHOW_BASKET');
         }
     },
