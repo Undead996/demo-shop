@@ -47,9 +47,10 @@ class Widget {
     }
     getFrameMessage(e) {
         let msg = JSON.parse(e.data);
+        console.log(msg);
         if (msg.result[0] == 0) {
             this.onSuccess(msg.result);
-        } else if (msg.result[0] != 0 ){
+        } else {
             this.onFail(msg.why, msg.result);
         }
 
@@ -58,6 +59,7 @@ class Widget {
         }
     }
     closeWidget() {
+        console.log('close');
         this.frame.remove();
     }
 }
