@@ -59,13 +59,13 @@ export default {
                         sign: 'some',
                         pay_params: {ext_transact: "",
                                     num_shop: '00000001',
-                                    keyt_shop: '007',
+                                    keyt_shop: '40903810700100494065',
                                     comment: `Оплата на ${window.location.host}`,
                                     summ: this.total,
                                     payform: "0",
                                     accountId:'testShop',
                                     skin: '',
-                                    free_param: '',
+                                    free_param: 'hello',
                         },
                         onSuccess: function (result) {
                             console.log('success', result);
