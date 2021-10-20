@@ -49,7 +49,7 @@ class Widget {
         let msg = JSON.parse(e.data);
         if (msg.result[0] == 0) {
             this.onSuccess(msg.result);
-        } else if (msg.result[0] == 1){
+        } else if (msg.result[0] != 0 ){
             this.onFail(msg.why, msg.result);
         }
 
