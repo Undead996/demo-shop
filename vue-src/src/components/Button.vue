@@ -25,7 +25,11 @@ button {
     line-height: 1.5;
     transition: $def-transition;
 }
-button:hover {
+.disabled {
+    color: $font-semidark;
+    cursor: default;
+}
+button:not(.disabled):hover {
     background-color: $btn-color;
     color: white;
 }

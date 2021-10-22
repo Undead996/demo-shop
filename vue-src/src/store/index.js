@@ -12,7 +12,9 @@ export default createStore({
       {name: 'Спецпредложение', desc: 'Lorem ipsum.', reit: 5, img: '09.jpg', id: '009', price: 22, t: 'RUB'},
       {name: 'Летний кот', desc: 'Lorem ipsum.', reit: 5, img: '06.jpg', id: '006', price: 11, t: 'RUB'},
     ],
+    testData: data ? data : false,
     inBasket: {},
+    payResult: false,
     isBlur: false,
     showBasket: false,
     showLightbox: false,
@@ -51,6 +53,9 @@ export default createStore({
     },
     SHOW_BASKET: (state) => {
       state.showBasket = !state.showBasket;
+    },
+    PAY_RESULT: (state, n) => {
+      state.payResult = n;
     },
     SHOW_LIGHTBOX: (state) => {
       state.showLightbox = !state.showLightbox;

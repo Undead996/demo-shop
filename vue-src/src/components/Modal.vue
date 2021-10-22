@@ -2,8 +2,9 @@
     <transition appear name="show-anim">
     <div class='modal'>
         <div class='modal-content'>
-            <Basket v-if="this.$store.state.showBasket"/>
+            <Basket v-if="this.$store.state.showBasket" />
             <ProductLightbox v-else-if="this.$store.state.showLightbox" />
+            <Result v-else-if="this.$store.state.payResult" />
         </div>
     </div>
     </transition>
@@ -12,11 +13,13 @@
 <script>
 import Basket from '@/components/Basket.vue'
 import ProductLightbox from '@/components/ProductLightbox.vue'
+import Result from '@/components/Result.vue'
 
 export default {
     components: {
         Basket,
         ProductLightbox,
+        Result,
     }    
 }
 </script>

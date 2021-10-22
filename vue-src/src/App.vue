@@ -21,7 +21,10 @@ export default {
     Catalog,
     Footer,
     Modal,
-  }
+  },
+  mounted() {
+    console.log(this.$store.state);
+  },
 }
 </script>
 

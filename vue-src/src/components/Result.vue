@@ -1,8 +1,11 @@
 <template>
     <div class="basket">
         <div class="basket-header">
-            <h2>КОРЗИНА</h2>
-            <Button :listener="() => {this.$store.dispatch('act_SHOW_BASKET')}" text="&#10006;"/>
+            <div>
+                <h2>{{this.result.title}}</h2>
+                <p>{{this.result.description}}</p>
+            </div>
+            <Button :listener="() => {this.closeResult()}" text="&#10006;"/>
         </div>
         <div v-if="Object.keys(this.$store.state.inBasket).length > 0" class="basket-products">
             <div :key="item.id" v-for="item in this.$store.state.inBasket" class="single">
@@ -11,25 +14,15 @@
                 </div>
                 <div class='single-data'>
                     <p class="single-data-name">{{item[0].name}} </p>
-                    <p class="single-data-price">{{item[0].price}} {{item[0].t}} </p>
-                    <p class="single-data-id"> ID: {{item[0].id}}</p>
                     <div class='single-data-actions'>
-                        <Button :listener="() => this.RemoveFromBasket(item[0].id)" text='Убрать'/>
+                        <Button class='disabled' v-bind:text="this.result.button"/>
                     </div>
                 </div>
             </div>
             <div class="single total">
-                <div class='single-img'>
-                </div>
-                <div class='single-data'>
-                    <p>Итог: {{this.total}} </p>
-                    <Button :listener="this.sendToFrameTest" text='Купить' class='big'/>
-                </div>
-            </div>
-        </div>
-        <div v-else class="basket-products">
-            <div class='single'>
-                <h2>Корзина пуста</h2>
+                <p>И не забудтье: кот сам себя не погладит!</p>
+                <Button v-if="this.result.status" :listener="() => {this.repeat()}" text='Повторить' class='big'/>
+                <Button :listener="() => {this.closeResult()}" text='Закрыть' class='big'/>
             </div>
         </div>
     </div>
@@ -37,44 +30,30 @@
 
 <script>
 import Button from '@/components/Button.vue'
-import {openWidget} from '@/widget/widget.class.js';
 
 export default {
     components: {
         Button
     },
     computed: {
-        total() {
-            return this.$store.getters.get_TOTAL_SUMM;
-        }
+        result() {
+            let res = this.$store.state.payResult;
+            return {
+                status: res.res['0'],
+                button: res.res['0'] == '0' ? 'Оплачено' : 'Не оплачено',
+                description: res.res['0'] == '0' ? 'Ваш кот будет ждать вас в условленном месте, сами знаете где!' : res.res['1'],
+                title: res.res['0'] == '0' ? 'Поздравляем!': 'Ошибка!'
+                };
+        },
     },
     methods: {
-        RemoveFromBasket(id) {
-            this.$store.commit('REMOVE_FROM_BASKET', id);
+        closeResult() {
+            this.$store.commit('CLEAR_BASKET');
+            this.$store.commit('PAY_RESULT', false);
+            this.$store.commit('SHOW_MODAL');
         },
-        sendToFrameTest() {
-            let context = this.$store;
-            openWidget({frame_id: 'test_frame',
-                        frame_name: 'to_pay',
-                        sign: 'some',
-                        pay_params: {ext_transact: "",
-                                    num_shop: '00000001',
-                                    keyt_shop: '40903810700100494065',
-                                    comment: `Оплата на ${window.location.host}`,
-                                    summ: this.total,
-                                    payform: "0",
-                                    accountId:'testShop',
-                                    skin: '',
-                                    free_param: 'hello',
-                        },
-                        onSuccess: function (result) {
-                            context.commit('PAY_RESULT', {res:result});
-                            console.log(context.state);
-                        },
-                        onFail: function (why, result) {
-                            context.commit('PAY_RESULT', {res:result, why:why});
-                            console.log(context.state);
-                        }});
+        repeat() {
+            this.$store.commit('PAY_RESULT', false);
             this.$store.commit('SHOW_BASKET');
         }
     },
@@ -101,7 +80,11 @@ export default {
         justify-content: space-between;
         align-items: center;
         font-size: 1.2rem;
-        margin-bottom: 3rem;
+        div {
+            p {
+                color: $font-semidark;
+            }
+        }
     }
     &-products {
         margin-top: 0.5rem;
@@ -154,8 +137,12 @@ export default {
     }
     .total {
         justify-content: space-between;
-        font-size: 2rem;
+        font-size: 1rem;
         margin-bottom: 0 !important;
+        p {
+            font-style: italic;
+            color: $font-semidark;
+        }
         .big {
             font-size: 1.5rem;
             color: white;
