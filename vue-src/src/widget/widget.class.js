@@ -1,9 +1,6 @@
-// const proc_url = "http://192.168.100.24:80";
-const proc_url = "http://192.168.121.5:3300/index.php";
-
 class Widget {
     constructor( data ) {
-        this.proc_url = proc_url;
+        this.proc_url = data.proc_url;
         this.pay_params = data.pay_params;
         this.frame_id = data.frame_id;
         this.frame_name = data.frame_name;

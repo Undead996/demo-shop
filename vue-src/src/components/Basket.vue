@@ -60,6 +60,8 @@ export default {
             openWidget({frame_id: 'test_frame',
                         frame_name: 'to_pay',
                         sign: 'some',
+                        proc_url: this.$store.state.sendData.proc_url ? this.$store.state.sendData.proc_url : "http://192.168.121.5:3300/index.php",
+                        pay_params,
                         onSuccess: function (result) {
                             context.commit('PAY_RESULT', {res:result});
                             console.log(context.state);
