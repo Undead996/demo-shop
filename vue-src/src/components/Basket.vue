@@ -54,19 +54,12 @@ export default {
         },
         sendToFrameTest() {
             let context = this.$store;
+            let pay_params = this.$store.state.sendData;
+            pay_params['comment'] = `Оплата на ${window.location.host}`;
+            pay_params['summ'] = this.total;
             openWidget({frame_id: 'test_frame',
                         frame_name: 'to_pay',
                         sign: 'some',
-                        pay_params: {ext_transact: "",
-                                    num_shop: '00000001',
-                                    keyt_shop: '40914810600000000004',
-                                    comment: `Оплата на ${window.location.host}`,
-                                    summ: this.total,
-                                    payform: "",
-                                    accountId:'121643000439218',
-                                    skin: '',
-                                    free_param: 'hello',
-                        },
                         onSuccess: function (result) {
                             context.commit('PAY_RESULT', {res:result});
                             console.log(context.state);

@@ -12,7 +12,7 @@ export default createStore({
       {name: 'Спецпредложение', desc: 'Lorem ipsum.', reit: 5, img: '09.jpg', id: '009', price: 22, t: 'RUB'},
       {name: 'Летний кот', desc: 'Lorem ipsum.', reit: 5, img: '06.jpg', id: '006', price: 11, t: 'RUB'},
     ],
-    testData: data ? data : false,
+    sendData: sendData ? sendData : false,
     inBasket: {},
     payResult: false,
     isBlur: false,
