@@ -11,7 +11,7 @@ define('SEND_PARAMS'  , ['ext_transact' => '',
     const sendData = <?php print json_encode(SEND_PARAMS);?>;
 </script>
 <?php
-require './index.html';
+require './public/index.html';
 ?>
 
 

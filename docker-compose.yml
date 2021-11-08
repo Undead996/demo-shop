@@ -5,8 +5,8 @@ services:
        build: SPA/
        ports: 
            - "3000:80"
-#       volumes:
-#           - ./SPA:/var/www/html
+       volumes:
+           - ./SPA:/var/www/html
        container_name: demo-shop
        networks:
            app_net_shop:
