@@ -23,13 +23,20 @@ class Widget {
         this.frame = cont;
 
     }
+    createPayParamsInput(value) {
+        let payInput = document.createElement('INPUT');
+        payInput.type = 'hidden';
+        payInput.name = 'pay_params';
+        payInput.value = value;
+        return payInput;
+    }
     createFormData() {  
         this.form = document.createElement('FORM');
         this.form.id = `form_${this.frame_id}`;
         this.form.target = this.frame_name;
         this.form.action = this.proc_url;
         this.form.method = 'post';
-        this.form.innerHTML = `<input type="hidden" name="pay_params" value='${this.prepareParams()}'/><input type="submit">`;
+        this.form.appendChild(this.createPayParamsInput(this.prepareParams()))
         this.form.style.display = 'none';
         document.querySelector('body').append(this.form); 
     }
