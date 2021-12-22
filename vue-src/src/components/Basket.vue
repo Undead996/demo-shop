@@ -57,7 +57,7 @@ export default {
             let pay_params = this.$store.state.sendData;
             pay_params['comment'] = `Оплата на ${window.location.host}`;
             pay_params['summ'] = this.total;
-            openWidget({frame_id: 'test_frame',
+            console.log({frame_id: 'test_frame',
                         frame_name: 'to_pay',
                         sign: 'some',
                         proc_url: this.$store.state.sendData.proc_url ? this.$store.state.sendData.proc_url : "http://192.168.121.5:3300/index.php",
@@ -68,6 +68,19 @@ export default {
                         },
                         onFail: function (why, result) {
                             context.commit('PAY_RESULT', {res:result, why:why});
+                            console.log(context.state);
+                        }})
+            openWidget({frame_id: 'test_frame',
+                        frame_name: 'to_pay',
+                        sign: 'some',
+                        proc_url: this.$store.state.sendData.proc_url ? this.$store.state.sendData.proc_url : "http://192.168.121.5:3300/index.php",
+                        pay_params,
+                        onSuccess: function (result) {
+                            context.commit('PAY_RESULT', {res:result});
+                            console.log(context.state);
+                        },
+                        onFail: function (result) {
+                            context.commit('PAY_RESULT', {res:result});
                             console.log(context.state);
                         }});
             this.$store.commit('SHOW_BASKET');

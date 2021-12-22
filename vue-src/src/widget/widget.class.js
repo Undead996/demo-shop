@@ -48,7 +48,7 @@ class Widget {
         if (msg.result[0] == 0) {
             this.onSuccess(msg.result);
         } else {
-            this.onFail(msg.why, msg.result);
+            this.onFail(msg.result);
         }
 
         if (msg.command == 'close') {

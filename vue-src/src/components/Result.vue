@@ -39,10 +39,10 @@ export default {
         result() {
             let res = this.$store.state.payResult;
             return {
-                status: res.res['0'],
-                button: res.res['0'] == '0' ? 'Оплачено' : 'Не оплачено',
-                description: res.res['0'] == '0' ? 'Ваш кот будет ждать вас в условленном месте, сами знаете где!' : res.res['1'],
-                title: res.res['0'] == '0' ? 'Поздравляем!': 'Ошибка!'
+                status: res.res['result_code'],
+                button: res.res['result_code'] == '0' ? 'Оплачено' : 'Не оплачено',
+                description: res.res['result_code'] == '0' ? 'Ваш кот будет ждать вас в условленном месте, сами знаете где!' : res.res['1'],
+                title: res.res['result_code'] == '0' ? 'Поздравляем!': 'Ошибка!'
                 };
         },
     },
